@@ -1,0 +1,33 @@
+<h1>Welcome to Social Media App</h1>
+
+<nav>
+<div>
+    <ul>
+        <li><a href="{% url "social:home" %}">Home</a></li>
+        
+        {% if request.user.is_authenticated %}
+        
+        <li><a href="{% url "authentication:logout" %}">Logout</a></li>
+        {% else %}
+        <li><a href="">Sign In</a>
+            <ul>
+                <li><a href="{% url 'authentication:register' %}">Register</a></li>
+                <li><a href="{% url 'authentication:login' %}">Login</a></li>
+                
+            
+            </ul>
+
+        
+        </li>
+       
+        {% endif %}
+    </ul>
+</div>
+</nav>
+{% if messages %}
+<ul class="messages">
+  {% for message in messages %}
+  <li class="{{ message.tags }}">{{ message }}</li>
+  {% endfor %}
+</ul>
+{% endif %} {% block content %}{% endblock content %}
