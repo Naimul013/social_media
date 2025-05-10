@@ -1,0 +1,22 @@
+{% extends "authentication/base.html" %}
+{% block content %}
+
+<table>
+  <tr>
+<th>Profile Pic</th>
+<th>Name</th>
+  </tr>
+  
+{% for i in member %}
+{% if i.username != request.user.username %}
+<tr>
+<td><img src="{{i.profile_pic.url}}" alt="" width = '50' height = '50'></td>
+<td><a href= "{% url "social:profile" i.id %}">{{i.first_name}}</a></td>
+</tr>
+{% endif %}
+{% endfor %}
+  
+</table>
+
+
+{% endblock content %}o

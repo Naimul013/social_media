@@ -2,6 +2,9 @@
 
 {% block content %}
 {% if user.is_authenticated %}
-Hello , {{user.first_name}}
+Hello , {{user.first_name}} <br>
+Follower: {{follower.count}}
+Following: {{following.count}}
+
 {% endif %}
 {% endblock content %}

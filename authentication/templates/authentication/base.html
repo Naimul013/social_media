@@ -1,9 +1,11 @@
-<h1>Welcome to Social Media App</h1>
+
 
 <nav>
 <div>
     <ul>
         <li><a href="{% url "social:home" %}">Home</a></li>
+        <li><a href="{% url "social:add_friend" %}">Add Friend</a></li>
+        <li><a href="{% url "social:user_profile" request.user.id %}">User Profile</a></li>
         
         {% if request.user.is_authenticated %}
         
@@ -24,10 +26,12 @@
     </ul>
 </div>
 </nav>
+
 {% if messages %}
 <ul class="messages">
   {% for message in messages %}
   <li class="{{ message.tags }}">{{ message }}</li>
   {% endfor %}
 </ul>
+<h1>Welcome to Social Media App</h1>
 {% endif %} {% block content %}{% endblock content %}
