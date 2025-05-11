@@ -1,0 +1,8 @@
+{% extends "authentication/base.html" %}
+{% block content %}
+<h1>Follower</h1>
+{% for i in follower %}
+<ul><li><img src="{{i.follower.profile_pic.url}}" alt="" height= '50' width='50'> 
+ <a href="{% url "social:profile" i.follower.id %}">{{i.follower.first_name}} {{i.follower.last_name}}</a></li></ul>
+{% endfor %}
+{% endblock content %}

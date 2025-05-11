@@ -3,8 +3,24 @@
 {% block content %}
 {% if user.is_authenticated %}
 Hello , {{user.first_name}} <br>
-Follower: {{follower.count}}
-Following: {{following.count}}
+<a href="{% url "social:follower_users" %}">Follower: </a>{{follower.count}}
+<a href="{% url 'social:following_users' %}?following_user=true">Following: </a>{{following.count}} <br> <br>
+<br>
+<br>
+<br>
+<a href="{% url "social:home" %}">All Post</a>
+<a href="{% url 'social:home' %}?following_only=true">Following</a> <br> <br>
+ <a href="{% url "social:new_post" %}">Add Post</a> <br> <br> <br>
+Posts: <br>
+{% for i in post  %}
+{{i.author.username}} <br>
+{{i.created_at}} <br>
+{{i.content}} <br>
+{% if i.image %}
+<img src="{{i.image.url}}" alt="" height='100' width='150'> 
+{% endif %}
+<br> <br> <br>
+{% endfor %}
 
 {% endif %}
 {% endblock content %}

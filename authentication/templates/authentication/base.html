@@ -5,10 +5,10 @@
     <ul>
         <li><a href="{% url "social:home" %}">Home</a></li>
         <li><a href="{% url "social:add_friend" %}">Add Friend</a></li>
-        <li><a href="{% url "social:user_profile" request.user.id %}">User Profile</a></li>
+        
         
         {% if request.user.is_authenticated %}
-        
+        <li><a href="{% url "social:user_profile" request.user.id %}">User Profile</a></li>
         <li><a href="{% url "authentication:logout" %}">Logout</a></li>
         {% else %}
         <li><a href="">Sign In</a>

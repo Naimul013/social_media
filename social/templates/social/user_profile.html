@@ -1,0 +1,18 @@
+{% extends "authentication/base.html" %}
+
+{% block content %}
+<h1>User Profile</h1>
+<a href="{% url "social:profile_edit" profile.id %}">Edit Profile</a> <br>
+Profile of {{profile.first_name}} <br>
+
+
+
+
+
+
+<img src="{{profile.profile_pic.url}}" alt="" width = '200' height = '200'> <br>
+Name : {{profile.first_name}} {{profile.last_name}} <br>
+Bio : {{profile.bio}} 
+<br> <br> <br>
+Posts: <br>
+{% endblock content %}

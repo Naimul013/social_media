@@ -19,4 +19,12 @@ Name : {{profile.first_name}} {{profile.last_name}} <br>
 Bio : {{profile.bio}} 
 <br> <br> <br>
 Posts: <br>
+{% for post in posts  %}
+{{post.created_at}} <br>
+{{post.content}} <br>
+{% if post.image %}
+<img src="{{post.image.url}}" alt="">
+{% endif %}
+<br>
+{% endfor %}
 {% endblock content %}
