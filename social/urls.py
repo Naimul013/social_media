@@ -14,6 +14,12 @@ urlpatterns = [
     path('new_post/',post_views.new_post,name='new_post'),
     path('following_users/',post_views.follow_user_list,name='following_users'),
     path('follower_users/',post_views.follow_user_list,name='follower_users'),
+    path('react/<int:pk>/',post_views.react,name='react'),
+    path('comment/<int:pk>/',post_views.comment,name='comment'),
+    path('comment/delete/<int:pk>/',post_views.delete_comment,name='delete_comment'),
+    path('post/edit/<int:pk>/comment/edit/<int:ck>/',post_views.edit_comment,name='edit_comment'),
+    path('notifications/',post_views.notification_list, name='notification_list'),
+    path('search/',post_views.search, name='search'),
 
 ]
    

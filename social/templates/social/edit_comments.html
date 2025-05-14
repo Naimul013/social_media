@@ -1,0 +1,42 @@
+{{post.author.username}} <br>
+{{post.created_at}} <br>
+{{post.content}} <br>
+{% if post.image %}
+<img src="{{post.image.url}}" alt="" height='100' width='150'> 
+{% endif %}
+<br>
+<form method="POST" action= '{% url "social:react" post.id %}'>
+{% csrf_token %}
+
+
+{% if post.user_reacted %}
+
+<button type = 'submit'>Unlike</button>
+{% else %}
+
+<button type = 'submit'>Like</button>
+
+{% endif %}
+
+</form>
+React conter: {{post.reactions.count}} <br>
+
+<p>Comments: <br></p>
+
+
+{{comment.user}}
+{{comment.content}}
+{{comment.created_at}} <br>
+
+<form method="POST" action='{% url "social:edit_comment" post.id comment.id %}'>
+{% csrf_token %}
+{{form.as_p}}
+<button type= 'submit'>Submit</button><br>
+
+
+</form>
+
+
+
+
+

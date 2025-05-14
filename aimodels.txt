@@ -89,3 +89,47 @@ class Story(models.Model):
         if not self.expires_at:
             self.expires_at = timezone.now() + timezone.timedelta(hours=24)
         super().save(*args, **kwargs)
+
+
+
+base.html
+
+
+
+<nav>
+<div>
+    <ul>
+        <li><a href="{% url "social:home" %}">Home</a></li>
+        <li><a href="{% url "social:add_friend" %}">Add Friend</a></li>
+        <li><a href="{% url "social:notification_list" %}">Notification</a></li>
+        <li><a href="{% url "social:search" %}">Search</a></li>
+        
+        
+        {% if request.user.is_authenticated %}
+        <li><a href="{% url "social:user_profile" request.user.id %}">User Profile</a></li>
+        <li><a href="{% url "authentication:logout" %}">Logout</a></li>
+        {% else %}
+        <li><a href="">Sign In</a>
+            <ul>
+                <li><a href="{% url 'authentication:register' %}">Register</a></li>
+                <li><a href="{% url 'authentication:login' %}">Login</a></li>
+                
+            
+            </ul>
+
+        
+        </li>
+       
+        {% endif %}
+    </ul>
+</div>
+</nav>
+
+{% if messages %}
+<ul class="messages">
+  {% for message in messages %}
+  <li class="{{ message.tags }}">{{ message }}</li>
+  {% endfor %}
+</ul>
+<h1>Welcome to Social Media App</h1>
+{% endif %} {% block content %}{% endblock content %}

@@ -14,9 +14,12 @@ def home(request):
         following_users = request.user.following.values_list('following',flat = True)
         post = Post.objects.filter(author__in = following_users)
     else: 
-        post = Post.objects.all()
-
-    context = {'user':user,'follower':follower, 'following':following,'post':post}
+        post = Post.objects.prefetch_related('reactions')
+    
+    for i in post:
+        i.user_reacted = i.user_reacted(user=request.user)
+    form = CommentForm()
+    context = {'user':user,'follower':follower, 'following':following,'post':post, 'form':form}
     return render(request,'social/home.html',context)
 
 def add_friend(request):
@@ -47,6 +50,12 @@ def follow(request,pk):
     user_to_follow = get_object_or_404(CustomUser,id = pk)
     if user_to_follow != request.user:
         Follow.objects.get_or_create(follower = request.user, following = user_to_follow)
+        if created:
+            Notification.objects.created(
+                sender = request.user,
+                receiver = user_to_follow,
+                notification_type = 'follow'
+            )
         
         
     return redirect('social:home')

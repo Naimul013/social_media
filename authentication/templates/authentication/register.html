@@ -1,7 +1,22 @@
-{% extends "authentication/base.html" %} {% block content %}
-<form method="POST" enctype="multipart/form-data">
-  {% csrf_token %} {{form.as_p}}
-  <button type="submit">Register</button>
-</form>
+{% extends "authentication/base.html" %}
+{% load static %}
+{% block content %}
+<h1 class= 'form-h1'>Register Now</h1>
+
+
+  <form class = 'registration-form' method="POST" enctype="multipart/form-data">
+    {% csrf_token %}  {% for field in form %}
+    <div class="form-group">
+      {{ field.label_tag }}
+      {{ field }}
+      {% if field.errors %}
+        <div class="form-error">{{ field.errors }}</div>
+      {% endif %}
+    </div>
+  {% endfor %}
+  
+    <div class = 'reg-button'><button  type="submit">Register</button></div>
+  </form>
+
 
 {% endblock content %}

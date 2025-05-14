@@ -1,5 +1,6 @@
-{% extends "authentication/base.html" %}
 
+{% extends "authentication/base.html" %}
+{% load static %}
 {% block content %}
 {% if user.is_authenticated %}
 Hello , {{user.first_name}} <br>
@@ -19,6 +20,50 @@ Posts: <br>
 {% if i.image %}
 <img src="{{i.image.url}}" alt="" height='100' width='150'> 
 {% endif %}
+<br>
+<form method="POST" action= '{% url "social:react" i.id %}'>
+{% csrf_token %}
+
+
+{% if i.user_reacted %}
+
+<button type = 'submit'>Unlike</button>
+{% else %}
+
+<button type = 'submit'>Like</button>
+
+{% endif %}
+
+</form>
+React conter: {{i.reactions.count}} <br>
+
+<p>Comments: <br></p>
+{% if i.comments %}
+{% for comment in i.comments.all %}
+{{comment.user}}
+{{comment.content}}
+{{comment.created_at}} <br>
+{% if comment.user == request.user %}
+<a href="{% url "social:edit_comment" i.id comment.id %}">Edit Comment</a>
+{% endif %}
+<button type='submit'><a href="{% url "social:delete_comment" comment.id %}">Delete</a></button> <br>
+
+
+{% endfor %}
+{% else %}
+No comments yet
+{% endif %}
+
+<form method="POST" action='{% url "social:comment" i.id %}'>
+{% csrf_token %}
+{{form.as_p}}
+<button type= 'submit'>Submit</button><br>
+
+
+</form>
+
+
+
 <br> <br> <br>
 {% endfor %}
 

@@ -1,0 +1,23 @@
+{% extends "authentication/base.html" %}
+{% block content %}
+<h1>
+
+{% for notification in notifications %}
+{% if notification.sender != request.user %}
+<li>
+  {% if notification.notification_type == 'like' %}
+  {{notification.sender}} likes your post {{notification.created_at}}
+  <br>
+  {% elif notification.notification_type == 'comment' %}
+  {{notification.sender}} commented on your post {{notification.created_at}}
+  <br>
+  {% elif notification.notification_type == 'follow' %}
+  {{notification.sender}} followed you {{notification.created_at}}
+  <br>
+</li>
+</h1>
+{% endif %}
+{% endif %}
+{% endfor %}
+
+{% endblock content  %}

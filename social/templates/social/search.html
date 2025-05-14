@@ -1,0 +1,27 @@
+{% extends "authentication/base.html" %}
+{% block content %}
+<form method="get" action="{% url 'social:search' %}">
+    <input type="text" name="q" placeholder="Search posts..." value="{{ query }}">
+    <button type="submit">Search</button>
+</form>
+{% for post in page_obj %}
+    <p>{{ post.author.username }}: {{ post.content }}</p>
+{% empty %}
+    <p>No results found.</p>
+{% endfor %}
+
+<div class="pagination">
+    {% if page_obj.has_previous %}
+        <a href="?q={{ query }}&page=1">First</a>
+        <a href="?q={{ query }}&page={{ page_obj.previous_page_number }}">Previous</a>
+    {% endif %}
+
+    <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+
+    {% if page_obj.has_next %}
+        <a href="?q={{ query }}&page={{ page_obj.next_page_number }}">Next</a>
+        <a href="?q={{ query }}&page={{ page_obj.paginator.num_pages }}">Last</a>
+    {% endif %}
+</div>
+
+{% endblock content %}

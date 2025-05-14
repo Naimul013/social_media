@@ -1,0 +1,12 @@
+{% extends "authentication/base.html" %}
+{% block content %}
+<form method="POST" action= '{% url "social:reaction" post.id %}'></form>
+{% csrf_token %}
+{% if user_reacted %}
+<button type = 'submit'>Unlike</button>
+{% else %}
+<button type = 'submit'>Like</button>
+
+{% endif %}
+
+{% endblock content %}
